@@ -26,7 +26,7 @@ export const MapView = () => {
     <div style={{ height: "100vh", width: "100%" }}>
       <GoogleMapReact
         bootstrapURLKeys={{
-          key: '<GOOGLE API KEY>',
+          key: process.env.REACT_APP_GOOGLE_API_KEY,
           libraries: ["places", "directions"],
         }}
         defaultCenter={state.map.center}
