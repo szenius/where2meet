@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
-import { MapView } from "./components/MapView";
+import { MapContainer } from "./components/MapContainer";
+import { SearchContainer } from "./components/SearchContainer";
 
 function App() {
   return (
     <div className="App">
-      <MapView />
+      <SearchContainer />
+      <MapContainer />
     </div>
   );
 }
