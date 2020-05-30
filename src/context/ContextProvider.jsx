@@ -1,42 +1,34 @@
 import React, { createContext, useReducer } from "react";
-import { SET_MAP, SET_SOURCE_COORDINATES } from "./actions";
+import { SET_MAP, SET_SOURCE } from "./actions";
 
 const initialState = {
-  map: {
-    center: {
-      lat: 1.39849,
-      lng: 103.907921,
-    },
-    zoom: 11,
-    map: null,
-    services: {
-      maps: null,
-      autocomplete: null,
-      places: null,
-      geocoder: null,
-      direction: null,
-    },
+  center: {
+    lat: 1.39849,
+    lng: 103.907921,
   },
-  recommendations: {
-    sourceCoordinates: [],
-  },
+  zoom: 11,
+  isMapsLoaded: false,
+  map: null,
+  maps: null,
+  autocomplete: null,
+  places: null,
+  geocoder: null,
+  direction: null,
+  sources: [],
 };
 
 export const Context = createContext(initialState);
 
 export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
-    switch (action.type) {
+    const { type, data } = action;
+    switch (type) {
       case SET_MAP:
-        return { ...state, map: { ...state.map, ...action.data } };
-      case SET_SOURCE_COORDINATES:
-        return {
-          ...state,
-          recommendations: {
-            ...state.recommendations,
-            sourceCoordinates: action.data,
-          },
-        };
+        return { ...state, ...data };
+      case SET_SOURCE:
+        const { index, lat, lng, label } = data;
+        state.sources.splice(index, 1, { lat, lng, label });
+        return { ...state };
       default:
         return state;
     }

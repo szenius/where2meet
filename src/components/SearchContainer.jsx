@@ -2,33 +2,51 @@ import React, { useContext, useState } from "react";
 import { Context } from "../context/ContextProvider";
 import { AutoComplete } from "antd";
 import "antd/dist/antd.css";
+import { setSource } from "../context/actions";
 
 export const SearchContainer = () => {
   const { state, dispatch } = useContext(Context);
-  const { autocomplete, geocoder, maps } = state.map.services;
-  const { lat, lng } = state.map.center;
+  const { autocomplete, geocoder, maps, center } = state;
+  const { lat, lng } = center;
   const searchCenter = maps && new maps.LatLng(lat, lng);
 
+  const addNewSource = (index, lat, lng, label) =>
+    dispatch(setSource(index, lat, lng, label));
+
   return (
-    maps && (
-      <div className="search-form">
-        <h2>where2meet</h2>
-        <SearchBox
-          autocomplete={autocomplete}
-          geocoder={geocoder}
-          searchCenter={searchCenter}
-        />
-        <SearchBox
-          autocomplete={autocomplete}
-          geocoder={geocoder}
-          searchCenter={searchCenter}
-        />
-      </div>
-    )
+    <div className="search-form">
+      <h2>where2meet</h2>
+      {maps ? (
+        <>
+          <SearchBox
+            autocomplete={autocomplete}
+            geocoder={geocoder}
+            searchCenter={searchCenter}
+            sourceIndex={0}
+            addNewSource={addNewSource}
+          />
+          <SearchBox
+            autocomplete={autocomplete}
+            geocoder={geocoder}
+            searchCenter={searchCenter}
+            sourceIndex={1}
+            addNewSource={addNewSource}
+          />
+        </>
+      ) : (
+        "Loading"
+      )}
+    </div>
   );
 };
 
-export const SearchBox = ({ autocomplete, geocoder, searchCenter }) => {
+export const SearchBox = ({
+  autocomplete,
+  geocoder,
+  searchCenter,
+  sourceIndex,
+  addNewSource,
+}) => {
   const [searchData, setSearchData] = useState([]);
 
   const onSearchHandler = (value) => {
@@ -49,9 +67,7 @@ export const SearchBox = ({ autocomplete, geocoder, searchCenter }) => {
   const onSelectHandler = (value) => {
     geocoder.geocode({ address: value }, (response) => {
       const { location } = response[0].geometry;
-      console.log(location);
-      // TODO: dispatch add source coordinate
-      // this.props.addMarker(location.lat(), location.lng(), this.props.markerName);
+      addNewSource(sourceIndex, location.lat(), location.lng(), sourceIndex);
     });
   };
 
