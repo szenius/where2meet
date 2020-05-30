@@ -2,15 +2,15 @@ import React from "react";
 import "./App.css";
 import { MapContainer } from "./components/map/MapContainer";
 import { SearchContainer } from "./components/search/SearchContainer";
-import { ContextProvider } from "./context/ContextProvider";
+import { MapContextProvider } from "./context/MapContextProvider";
 
 function App() {
   return (
     <div className="App">
-      <ContextProvider>
+      <MapContextProvider>
         <SearchContainer />
         <MapContainer />
-      </ContextProvider>
+      </MapContextProvider>
     </div>
   );
 }

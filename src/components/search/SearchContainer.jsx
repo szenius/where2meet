@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Context } from "../../context/ContextProvider";
-import { setSource } from "../../context/actions";
+import { MapContext } from "../../context/MapContextProvider";
+import { setSource } from "../../context/mapContext.actions";
 import { SearchBox } from "./SearchBox";
 
 export const SearchContainer = () => {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(MapContext);
   const { autocomplete, geocoder, maps, center } = state;
   const { lat, lng } = center;
   const searchCenter = maps && new maps.LatLng(lat, lng);
