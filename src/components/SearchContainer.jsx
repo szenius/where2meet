@@ -46,6 +46,7 @@ export const SearchBox = ({
   searchCenter,
   sourceIndex,
   addNewSource,
+  label,
 }) => {
   const [searchData, setSearchData] = useState([]);
 
@@ -67,7 +68,7 @@ export const SearchBox = ({
   const onSelectHandler = (value) => {
     geocoder.geocode({ address: value }, (response) => {
       const { location } = response[0].geometry;
-      addNewSource(sourceIndex, location.lat(), location.lng(), sourceIndex);
+      addNewSource(sourceIndex, location.lat(), location.lng(), value);
     });
   };
 

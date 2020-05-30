@@ -3,6 +3,7 @@ import GoogleMapReact from "google-map-react";
 import { Context } from "../context/ContextProvider";
 import { setMap } from "../context/actions";
 import "../App.css";
+import { MapMarker } from "./MapMarker";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -36,12 +37,8 @@ export const MapContainer = () => {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => onMapsLoadHandler(map, maps)}
       >
-        {Object.values(sources).map(({ lat, lng, label }) => (
-          <AnyReactComponent
-            lat={lat}
-            lng={lng}
-            text={"MARKER IS HERE" + label}
-          />
+        {Object.values(sources).map(({ index, lat, lng, label }) => (
+          <MapMarker lat={lat} lng={lng} label={label} key={index} />
         ))}
       </GoogleMapReact>
     </div>

@@ -24,3 +24,16 @@
   height: 100vh;
   width: 80%;
 }
+
+.map-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map-marker__marker {
+  border-radius: 50%;
+  background-color: red;
+  width: 20px;
+  height: 20px;
+}
