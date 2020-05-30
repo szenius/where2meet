@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import { MapContainer } from "./components/MapContainer";
-import { SearchContainer } from "./components/SearchContainer";
+import { MapContainer } from "./components/map/MapContainer";
+import { SearchContainer } from "./components/search/SearchContainer";
 import { ContextProvider } from "./context/ContextProvider";
 
 function App() {

@@ -1,16 +1,13 @@
 import React, { useContext } from "react";
 import GoogleMapReact from "google-map-react";
-import { Context } from "../context/ContextProvider";
-import { setMap } from "../context/actions";
-import "../App.css";
+import { Context } from "../../context/ContextProvider";
+import { setMap } from "../../context/actions";
+import "../../App.css";
 import { MapMarker } from "./MapMarker";
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export const MapContainer = () => {
   const { state, dispatch } = useContext(Context);
   const { sources } = state;
-  console.log("mapcontainer::", sources);
 
   const onMapsLoadHandler = (map, maps) => {
     dispatch(
